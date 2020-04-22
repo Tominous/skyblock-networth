@@ -115,7 +115,7 @@ function makeTimer() {
   
   // set days, hours minutes and seconds and set width
   $("#countdowndays p").html("Username: " + name).scalify();
-  $("#countdownhours p").html(profiles).scalify();
+  $("#countdownhours p").html("test" + profiles).scalify();
   $("#countdownmins p").html(" Minuten").scalify();
   $("#countdownsecs p").html(" Sekunden").scalify();
 }
@@ -123,6 +123,6 @@ makeTimer()
 // update every second
 setInterval(function() {
   makeTimer();
-}, 1000);
+}, 10000);
 
 </script>
