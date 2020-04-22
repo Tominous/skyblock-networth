@@ -115,7 +115,7 @@ function makeTimer(data1, name) {
   $("#countdownmins p").html(" Minuten").scalify();
   $("#countdownsecs p").html(" Sekunden").scalify();
 }
-var profiles
+var profiles;
 var name = getUrlParameter('name');
 url = "https://api.slothpixel.me/api/skyblock/profiles/" + name;
 $.get(url, function(data){
