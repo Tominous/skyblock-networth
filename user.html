@@ -97,15 +97,10 @@ function makeTimer() {
   
   // calculate remaining time
   var name = getUrlParameter('name');
-  const Http = new XMLHttpRequest();
-  const url='https://api.slothpixel.me/api/skyblock/profiles/' + name;
-  Http.open("GET", url);
-  Http.send();
+  $.get("https://api.slothpixel.me/api/skyblock/profiles/" + name, function(data){
+    profiles = data;
+  });
 
-  Http.onreadystatechange = fuction () {
-    var profiles = Http.responseText;
-    alert(profiles);
-  }
   
   // make method to scale divs
   $.fn.scalify = function() {
