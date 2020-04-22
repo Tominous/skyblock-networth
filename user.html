@@ -97,6 +97,14 @@ function makeTimer() {
   
   // calculate remaining time
   var name = getUrlParameter('name');
+  const Http = new XMLHttpRequest();
+  const url='https://api.slothpixel.me/api/skyblock/profiles/'.name;
+  Http.open("GET", url);
+  Http.send();
+
+  Http.onreadystatechange = (e) => {
+    var profiles = Http.responseText;
+  }
   
   // make method to scale divs
   $.fn.scalify = function() {
@@ -110,7 +118,7 @@ function makeTimer() {
   
   // set days, hours minutes and seconds and set width
   $("#countdowndays p").html("Username: " + name).scalify();
-  $("#countdownhours p").html(" Stunden").scalify();
+  $("#countdownhours p").html(profiles).scalify();
   $("#countdownmins p").html(" Minuten").scalify();
   $("#countdownsecs p").html(" Sekunden").scalify();
 }
