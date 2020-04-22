@@ -84,7 +84,7 @@ var getUrlParameter = function getUrlParameter(sParam) {
     }
 };
 
-function makeTimer() {
+function makeTimer(data1, name) {
   
   // here you can set the end time and time zone
   const queryString = window.location.search;
@@ -96,11 +96,7 @@ function makeTimer() {
   now = Date.parse(now) / 1000;
   
   // calculate remaining time
-  var name = getUrlParameter('name');
-  url = "https://api.slothpixel.me/api/skyblock/profiles/" + name;
-  $.get(url, function(data){
-    profiles = data;
-  });
+
 
   
   // make method to scale divs
@@ -115,14 +111,22 @@ function makeTimer() {
   
   // set days, hours minutes and seconds and set width
   $("#countdowndays p").html("Username: " + name).scalify();
-  $("#countdownhours p").html("test" + profiles).scalify();
+  $("#countdownhours p").html("test" + data1).scalify();
   $("#countdownmins p").html(" Minuten").scalify();
   $("#countdownsecs p").html(" Sekunden").scalify();
 }
-makeTimer()
+
+var name = getUrlParameter('name');
+url = "https://api.slothpixel.me/api/skyblock/profiles/" + name;
+$.get(url, function(data){
+  profiles = data;
+});
+
+makeTimer(profiles, name);
 // update every second
 setInterval(function() {
-  makeTimer();
+  makeTimer(profiles, name);
 }, 10000);
+
 
 </script>
