@@ -1,222 +1,108 @@
-<div id="app"></div>
-
-<footer>
-	<p>
-		Created with <i class="fa fa-heart"></i> by
-		<a target="_blank" href="https://florin-pop.com">gubareve</a>
-		- Source Code is 
-		<a target="https://github.com/gubareve/skyblock-networth/">here</a>
-	</p>
-</footer>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<div id="countdown">
+			<div id="countdowndays" class="box"><p></p></div>
+			<div id="countdownhours" class="box"><p></p></div>
+			<div id="countdownmins" class="box"><p></p></div>
+			<div id="countdownsecs" class="box"><p></p></div>
+</div>
 <style>
-@import url('https://fonts.googleapis.com/css?family=Lato');
+#countdown{
+  width: 420px;
+}
+/* Change this setting above to change the size of the whole countdown including the font */
 
-* {
-	box-sizing: border-box;
+*{
+  margin:0;
+  padding:0;
 }
 
-body {
-	background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-	
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-
-	min-height: 100vh;
-	font-family: 'Lato', sans-serif;
-	margin: 0 0 50px;
+html, body {
+  height: 100%;
+  overflow:hidden;
+  background: linear-gradient(to top, #09203f 0%, #537895 100%);
+}
+body{
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
-table {
-	box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+#countdowndays p{
+  opacity:1;
+}
+#countdownhours p{
+  opacity: 0.8;
+}
+#countdownmins p{
+  opacity: 0.6;
+}
+#countdownsecs p{
+  opacity: 0.4;
 }
 
-table thead button {
-	margin-left: 10px;
+#countdown {
+	text-transform: uppercase;
+  display:block;
+  border:10px solid rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  margin-left:auto;
+  margin-right:auto;
+  transition:.1s ease-in-out;
 }
 
-footer {
-    background-color: #222;
-    color: #fff;
-    font-size: 14px;
-    bottom: 0;
-    position: fixed;
-    left: 0;
-    right: 0;
-    text-align: center;
-    z-index: 999;
+.box{
+  white-space:nowrap;
+  line-height:0.8;
+  margin-bottom:10px;
 }
 
-footer p {
-    margin: 10px 0;
+.box p{
+	font-size: 1em;
+	font-weight: 900;
+  display:inline-block;
+  font-family: Helvetica, Arial, Sans-Serif;
+  color: #537895;
 }
 
-footer i {
-    color: red;
-}
-
-footer a {
-    color: #3c97bf;
-    text-decoration: none;
-}
 </style>
 <script>
-"use strict";
+function makeTimer() {
+  
+  // here you can set the end time and time zone
+  const queryString = window.location.search;
+  var endTime = new Date("14 Juni 2020 20:00:00 GMT+02:00");
+  endTime = Date.parse(endTime) / 1000;
+  
+  // get current time
+  var now = new Date();
+  now = Date.parse(now) / 1000;
+  
+  // calculate remaining time
+  const username = urlParams.get('name')
+  
+  // make method to scale divs
+  $.fn.scalify = function() {
+    var divwidth = $(".box").width();
+    var fontWidth = $(this).width();
+    var size = parseFloat($(this).css("font-size"));
+    var fontSize = divwidth / fontWidth * size;
 
-function _instanceof(left, right) { if (right != null && typeof Symbol !== "undefined" && right[Symbol.hasInstance]) { return !!right[Symbol.hasInstance](left); } else { return left instanceof right; } }
+    $(this).css("font-size", fontSize);
+  };
+  
+  // set days, hours minutes and seconds and set width
+  $("#countdowndays p").html("Username: " + name).scalify();
+  $("#countdownhours p").html(" Stunden").scalify();
+  $("#countdownmins p").html(" Minuten").scalify();
+  $("#countdownsecs p").html(" Sekunden").scalify();
+}
 
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+// update every second
+setInterval(function() {
+  makeTimer();
+}, 1000);
 
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _classCallCheck(instance, Constructor) { if (!_instanceof(instance, Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { return function () { var Super = _getPrototypeOf(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var tableData = [{
-  name: 'Amancio Ortega',
-  net_worth: 62.7
-}, {
-  name: 'Bernard Arnault',
-  net_worth: 76
-}, {
-  name: 'Bill Gates',
-  net_worth: 96.5
-}, {
-  name: 'Carlos Sim Helu',
-  net_worth: 64
-}, {
-  name: 'Jeff Bezos',
-  net_worth: 131
-}, {
-  name: 'Larry Ellison',
-  net_worth: 58
-}, {
-  name: 'Larry Page',
-  net_worth: 50.8
-}, {
-  name: 'Mark Zuckerberg',
-  net_worth: 62.3
-}, {
-  name: 'Michael Bloomberg',
-  net_worth: 55.5
-}, {
-  name: 'Warren Buffet',
-  net_worth: 82.5
-}];
-var sortTypes = {
-  up: {
-    class: 'sort-up',
-    fn: function fn(a, b) {
-      return a.net_worth - b.net_worth;
-    }
-  },
-  down: {
-    class: 'sort-down',
-    fn: function fn(a, b) {
-      return b.net_worth - a.net_worth;
-    }
-  },
-  default: {
-    class: 'sort',
-    fn: function fn(a, b) {
-      return a;
-    }
-  }
-};
-
-var Table = /*#__PURE__*/function (_React$Component) {
-  _inherits(Table, _React$Component);
-
-  var _super = _createSuper(Table);
-
-  function Table() {
-    var _this;
-
-    _classCallCheck(this, Table);
-
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _this = _super.call.apply(_super, [this].concat(args));
-
-    _defineProperty(_assertThisInitialized(_this), "state", {
-      currentSort: 'default'
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "onSortChange", function () {
-      var currentSort = _this.state.currentSort;
-      var nextSort;
-      if (currentSort === 'down') nextSort = 'up';else if (currentSort === 'up') nextSort = 'default';else if (currentSort === 'default') nextSort = 'down';
-
-      _this.setState({
-        currentSort: nextSort
-      });
-    });
-
-    return _this;
-  }
-
-  _createClass(Table, [{
-    key: "render",
-    value: function render() {
-      var data = this.props.data;
-      var currentSort = this.state.currentSort;
-      return data.length > 0 && /*#__PURE__*/React.createElement("table", {
-        className: "text-left"
-      }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "Name"), /*#__PURE__*/React.createElement("th", null, "Net Worth", /*#__PURE__*/React.createElement("button", {
-        onClick: this.onSortChange
-      }, /*#__PURE__*/React.createElement("i", {
-        className: "fas fa-".concat(sortTypes[currentSort].class)
-      }))))), /*#__PURE__*/React.createElement("tbody", null, _toConsumableArray(data).sort(sortTypes[currentSort].fn).map(function (p) {
-        return /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, p.name), /*#__PURE__*/React.createElement("td", null, "$", p.net_worth, "b"));
-      })));
-    }
-  }]);
-
-  return Table;
-}(React.Component);
-
-var App = function App() {
-  return /*#__PURE__*/React.createElement("div", {
-    className: "text-center"
-  }, /*#__PURE__*/React.createElement("h4", null, "Hypixel Player Net Worth"), /*#__PURE__*/React.createElement("p", null, "Click on the icon next to \"Net Worth\" to see the sorting functionality"), /*#__PURE__*/React.createElement(Table, {
-    data: tableData
-  }), /*#__PURE__*/React.createElement("small", null, "* Data gathered from the Offcial Hypixel ", /*#__PURE__*/React.createElement("a", {
-    href: "https://github.com/HypixelDev/PublicAPI",
-    target: "_blank"
-  }, "API")));
-};
-
-ReactDOM.render( /*#__PURE__*/React.createElement(App, null), document.getElementById('app'));
 </script>
