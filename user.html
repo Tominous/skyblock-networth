@@ -69,6 +69,21 @@ body{
 
 </style>
 <script>
+var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = window.location.search.substring(1),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+        }
+    }
+};
+
 function makeTimer() {
   
   // here you can set the end time and time zone
@@ -81,7 +96,7 @@ function makeTimer() {
   now = Date.parse(now) / 1000;
   
   // calculate remaining time
-  const username = urlParams.get('name')
+  var name = getUrlParameter('name');
   
   // make method to scale divs
   $.fn.scalify = function() {
