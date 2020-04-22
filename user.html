@@ -102,7 +102,7 @@ function makeTimer() {
   Http.open("GET", url);
   Http.send();
 
-  Http.onreadystatechange = (e) => {
+  Http.onreadystatechange = fuction () {
     var profiles = Http.responseText;
     alert(profiles);
   }
